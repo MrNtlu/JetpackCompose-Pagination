@@ -27,6 +27,16 @@ fun PagingListScreen() {
 
     val articles = viewModel.getBreakingNews().collectAsLazyPagingItems()
 
+    /*
+    https://developer.android.com/topic/libraries/architecture/paging/v3-overview
+    https://developer.android.com/topic/libraries/architecture/paging/v3-network-db
+    https://developer.android.com/codelabs/android-paging#4
+    https://betterprogramming.pub/jetpack-compose-pagination-287ea6e782e3
+    https://www.simplifiedcoding.net/pagination-in-jetpack-compose/
+    https://medium.com/simform-engineering/list-view-with-pagination-using-jetpack-compose-e131174eac8e
+    https://www.howtodoandroid.com/jetpack-compose-retrofit-recyclerview/
+     */
+
     LazyColumn {
         items(
             items = articles,
