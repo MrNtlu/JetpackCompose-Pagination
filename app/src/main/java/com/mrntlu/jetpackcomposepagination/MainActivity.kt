@@ -9,6 +9,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Info
+import androidx.compose.material.icons.rounded.List
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -72,7 +73,7 @@ fun MainScreen(
                         Text(text = "Manuel Paging")
                     },
                     icon = {
-                        Icon(imageVector = Icons.Rounded.Info, contentDescription = "")
+                        Icon(imageVector = Icons.Rounded.List, contentDescription = "")
                     }
                 )
             }

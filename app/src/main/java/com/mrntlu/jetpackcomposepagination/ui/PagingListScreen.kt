@@ -1,15 +1,8 @@
 package com.mrntlu.jetpackcomposepagination.ui
 
-import android.util.Log
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Divider
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,20 +20,10 @@ fun PagingListScreen() {
 
     val articles = viewModel.getBreakingNews().collectAsLazyPagingItems()
 
-    /*
-    https://developer.android.com/topic/libraries/architecture/paging/v3-overview
-    https://developer.android.com/topic/libraries/architecture/paging/v3-network-db
-    https://developer.android.com/codelabs/android-paging#4
-    https://betterprogramming.pub/jetpack-compose-pagination-287ea6e782e3
-    https://www.simplifiedcoding.net/pagination-in-jetpack-compose/
-    https://medium.com/simform-engineering/list-view-with-pagination-using-jetpack-compose-e131174eac8e
-    https://www.howtodoandroid.com/jetpack-compose-retrofit-recyclerview/
-     */
-
     LazyColumn {
         items(
             items = articles,
-            key = { index -> index.url }
+            key = { it.url }
         ) { article ->
             Text(
                 modifier = Modifier
@@ -51,35 +34,12 @@ fun PagingListScreen() {
             Divider()
         }
 
-        when (val state = articles.loadState.prepend) {
-            is LoadState.Loading -> {
-                Log.d("Test", "Prepend Loading")
-                item {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(Color.Gray),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center,
-                    ) {
-                        Text(text = "Prepend Loading")
-
-                        CircularProgressIndicator(color = Color.Black)
-                    }
-                }
-            }
-            is LoadState.Error -> {
-                Log.d("Test", "Prepend Error")
-            }
-            else -> {}
-        }
-
         when (val state = articles.loadState.refresh) { //FIRST LOAD
             is LoadState.Error -> {
-                Log.d("Test", "Refresh Loading")
+                //TODO Error Item
+                //state.error to get error message
             }
-            is LoadState.Loading -> {
-                Log.d("Test", "Refresh Loading")
+            is LoadState.Loading -> { // Loading UI
                 item {
                     Column(
                         modifier = Modifier
@@ -87,7 +47,11 @@ fun PagingListScreen() {
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center,
                     ) {
-                        Text(text = "Refresh Loading")
+                        Text(
+                            modifier = Modifier
+                                .padding(8.dp),
+                            text = "Refresh Loading"
+                        )
 
                         CircularProgressIndicator(color = Color.Black)
                     }
@@ -98,21 +62,20 @@ fun PagingListScreen() {
 
         when (val state = articles.loadState.append) { // Pagination
             is LoadState.Error -> {
-                Log.d("Test", "Append Loading")
+                //TODO Pagination Error Item
+                //state.error to get error message
             }
-            is LoadState.Loading -> {
-                Log.d("Test", "Append Loading")
+            is LoadState.Loading -> { // Pagination Loading UI
                 item {
                     Column(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .background(Color.Black),
+                            .fillMaxWidth(),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center,
                     ) {
-                        Text(text = "Append Loading", color = Color.White)
+                        Text(text = "Pagination Loading")
 
-                        CircularProgressIndicator(color = Color.White)
+                        CircularProgressIndicator(color = Color.Black)
                     }
                 }
             }

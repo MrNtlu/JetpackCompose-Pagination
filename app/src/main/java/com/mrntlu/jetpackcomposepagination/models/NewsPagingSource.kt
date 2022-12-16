@@ -1,10 +1,8 @@
 package com.mrntlu.jetpackcomposepagination.models
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.mrntlu.jetpackcomposepagination.service.NewsApiService
-import kotlinx.coroutines.delay
 
 class NewsPagingSource(
     private val newsApiService: NewsApiService,
@@ -20,9 +18,6 @@ class NewsPagingSource(
         return try {
             val page = params.key ?: 1
             val response = newsApiService.getNews(page = page)
-
-            Log.d("Test", "load: $page ${params.loadSize}")
-            delay(3000L)
 
             LoadResult.Page(
                 data = response.articles,

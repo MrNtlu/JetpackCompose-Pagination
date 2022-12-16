@@ -1,5 +1,6 @@
 package com.mrntlu.jetpackcomposepagination
 
+import com.mrntlu.jetpackcomposepagination.repository.NewsManuelPagingRepository
 import com.mrntlu.jetpackcomposepagination.repository.NewsRepository
 import com.mrntlu.jetpackcomposepagination.service.NewsApiService
 import dagger.Module
@@ -12,4 +13,7 @@ import dagger.hilt.android.components.ViewModelComponent
 class HiltModule {
     @Provides
     fun provideNewsRepository(newsApiService: NewsApiService): NewsRepository = NewsRepository(newsApiService)
+
+    @Provides
+    fun provideNewsManuelPagingRepository(newsApiService: NewsApiService): NewsManuelPagingRepository = NewsManuelPagingRepository(newsApiService)
 }
