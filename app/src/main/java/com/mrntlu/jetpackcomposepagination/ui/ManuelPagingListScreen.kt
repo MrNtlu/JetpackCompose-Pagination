@@ -21,12 +21,12 @@ import kotlinx.coroutines.launch
 @Composable
 fun ManuelPagingListScreen() {
     val viewModel = hiltViewModel<NewsManuelPagingViewModel>()
-    val listState = rememberLazyListState()
+    val lazyColumnListState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
 
     val shouldStartPaginate = remember {
         derivedStateOf {
-            viewModel.canPaginate && (listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: -9) >= (listState.layoutInfo.totalItemsCount - 1)
+            viewModel.canPaginate && (lazyColumnListState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: -9) >= (lazyColumnListState.layoutInfo.totalItemsCount - 6)
         }
     }
 
@@ -37,7 +37,7 @@ fun ManuelPagingListScreen() {
             viewModel.getNews()
     }
 
-    LazyColumn(state = listState) {
+    LazyColumn(state = lazyColumnListState) {
         items(
             items = articles,
             key = { it.url },
@@ -101,7 +101,7 @@ fun ManuelPagingListScreen() {
                             elevation = ButtonDefaults.elevation(0.dp),
                             onClick = {
                                 coroutineScope.launch {
-                                    listState.animateScrollToItem(0)
+                                    lazyColumnListState.animateScrollToItem(0)
                                 }
                             },
                             content = {
